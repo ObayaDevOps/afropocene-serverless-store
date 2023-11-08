@@ -1,0 +1,19 @@
+import { NextResponse } from "next/server"
+
+import { 
+  initialize as initializeProductModule,
+} from "@medusajs/product"
+
+export async function GET(
+  request: Request, 
+  { params }) {
+  
+  const { handle } = params
+  const productService = await initializeProductModule()
+
+  const data = await productService.listCategories({
+    handle,
+  })
+
+  return NextResponse.json({ category: data[0] })
+}
